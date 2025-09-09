@@ -14,6 +14,7 @@ import {
   PawPrint
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   userRole: "ADMIN_MASTER" | "CLINIC_ADMIN" | "RECEPTIONIST" | "VETERINARIAN";
@@ -22,9 +23,12 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const menuItems = {
     ADMIN_MASTER: [
-      { icon: BarChart3, label: "Dashboard Global", href: "/admin/dashboard" },
+      { icon: BarChart3, label: "Dashboard Global", href: "/" },
       { icon: Building2, label: "Gestão de Clínicas", href: "/admin/clinics" },
       { icon: Users, label: "Usuários Globais", href: "/admin/users" },
       { icon: Shield, label: "Configurações", href: "/admin/settings" },
@@ -63,16 +67,23 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
         </div>
 
         <div className="space-y-1">
-          {currentMenu.map((item) => (
-            <Button
-              key={item.href}
-              variant="ghost"
-              className="w-full justify-start gap-3 h-11 text-muted-foreground hover:text-foreground hover:bg-accent/50"
-            >
-              <item.icon className="w-5 h-5" />
-              {item.label}
-            </Button>
-          ))}
+          {currentMenu.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Button
+                key={item.href}
+                variant="ghost"
+                onClick={() => navigate(item.href)}
+                className={cn(
+                  "w-full justify-start gap-3 h-11 text-muted-foreground hover:text-foreground hover:bg-accent/50",
+                  isActive && "bg-accent text-foreground"
+                )}
+              >
+                <item.icon className="w-5 h-5" />
+                {item.label}
+              </Button>
+            );
+          })}
         </div>
       </div>
 
