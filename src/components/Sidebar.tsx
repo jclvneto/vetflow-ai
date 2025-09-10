@@ -102,7 +102,12 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
             )}
           </div>
         </div>
-        <Button variant="ghost" size="sm" className="w-full justify-start gap-2 text-muted-foreground">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => navigate('/')}
+          className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50"
+        >
           <LogOut className="w-4 h-4" />
           Sair
         </Button>
