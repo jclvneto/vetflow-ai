@@ -10,7 +10,8 @@ import {
   Calendar,
   User,
   Stethoscope,
-  Filter
+  Filter,
+  Mic
 } from "lucide-react";
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -18,10 +19,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { AudioRecordingModal } from "@/components/AudioRecordingModal";
 
 export default function Records() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [audioModalOpen, setAudioModalOpen] = useState(false);
   const [records, setRecords] = useState([
     {
       id: "PR001",
@@ -105,6 +108,10 @@ export default function Records() {
     form.reset();
   };
 
+  const handleAudioRecordCreated = (record: any) => {
+    setRecords([record, ...records]);
+  };
+
   return (
     <DashboardLayout 
       userRole="VETERINARIAN" 
@@ -117,13 +124,21 @@ export default function Records() {
             <h1 className="text-2xl font-bold text-foreground">Prontuários</h1>
             <p className="text-muted-foreground">Gerencie os prontuários dos pacientes</p>
           </div>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button className="gap-2">
-                <Plus className="w-4 h-4" />
-                Novo Prontuário
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => setAudioModalOpen(true)}
+              className="gap-2 bg-gradient-primary hover:shadow-glow transition-smooth"
+            >
+              <Mic className="w-4 h-4" />
+              Gravar com IA
+            </Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="gap-2">
+                  <Plus className="w-4 h-4" />
+                  Novo Manual
+                </Button>
+              </DialogTrigger>
 
             <DialogContent className="max-w-xl">
               <DialogHeader>
@@ -195,7 +210,14 @@ export default function Records() {
               </form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
+
+        <AudioRecordingModal
+          open={audioModalOpen}
+          onOpenChange={setAudioModalOpen}
+          onRecordCreated={handleAudioRecordCreated}
+        />
 
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
