@@ -87,18 +87,18 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
-        <div className="flex items-center gap-3 mb-4">
-          <Avatar className="w-8 h-8">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-gradient-card">
+        <div className="flex items-center gap-2 mb-3">
+          <Avatar className="w-8 h-8 shrink-0">
             <AvatarImage src="" />
             <AvatarFallback className="bg-primary text-primary-foreground text-sm">
               {userName.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">{userName}</p>
+          <div className="flex-1 min-w-0 overflow-hidden">
+            <p className="text-sm font-medium text-foreground truncate max-w-full">{userName}</p>
             {clinicName && (
-              <p className="text-xs text-muted-foreground truncate">{clinicName}</p>
+              <p className="text-xs text-muted-foreground truncate max-w-full">{clinicName}</p>
             )}
           </div>
         </div>
@@ -106,10 +106,10 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
           variant="ghost" 
           size="sm" 
           onClick={() => navigate('/')}
-          className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50"
+          className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50 truncate"
         >
-          <LogOut className="w-4 h-4" />
-          Sair
+          <LogOut className="w-4 h-4 shrink-0" />
+          <span className="truncate">Sair</span>
         </Button>
       </div>
     </div>
