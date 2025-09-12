@@ -54,7 +54,7 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
   const currentMenu = menuItems[userRole];
 
   return (
-    <div className="w-64 bg-gradient-card border-r border-border shadow-medium">
+    <div className="relative w-64 bg-gradient-card border-r border-border shadow-medium overflow-hidden">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-soft">
@@ -87,7 +87,7 @@ export const Sidebar = ({ userRole, userName, clinicName }: SidebarProps) => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-gradient-card">
+      <div className="absolute bottom-0 left-0 right-0 w-full p-4 border-t border-border bg-gradient-card overflow-hidden">
         <div className="flex items-center gap-2 mb-3">
           <Avatar className="w-8 h-8 shrink-0">
             <AvatarImage src="" />
